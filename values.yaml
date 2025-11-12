@@ -1,0 +1,45 @@
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+
+httpRoute:
+  enabled: false
+  host: ""
+  path: /
+
+
+ingress:
+  enabled: false
+  className: ""
+  hosts:
+    - host: myweb.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
